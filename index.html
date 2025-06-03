@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificado Oficina</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Custom Fonts -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            code: ['Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans flex flex-col items-center justify-start min-h-screen p-6">
+
+  <!-- Certificado -->
+  <div id="certificado" class="relative w-full max-w-[850px] h-[600px] shadow-lg rounded-lg overflow-hidden">
+
+    <!-- Fundo com imagem técnica -->
+    <img src="IMG_9627.png" alt="Fundo do certificado"
+         class="absolute inset-0 w-full h-full object-cover opacity-80" />
+
+    <!-- Logo Mundo SENAI -->
+    <img src="logo.png" alt="Logo Mundo SENAI"
+         class="absolute top-4 right-4 w-40 h-auto" />
+
+    <!-- Camada escura para contraste -->
+    <div class="absolute inset-0 bg-black/50 z-0"></div>
+
+    <!-- Conteúdo -->
+    <div class="absolute inset-0 flex items-center justify-center text-center px-10 py-12 z-10">
+      <div class="bg-white/85 rounded-xl p-8 max-w-3xl w-full shadow-xl backdrop-blur-sm">
+
+        <h1 class="text-3xl font-bold text-black mb-4">Certificado de Participação</h1>
+
+        <p class="text-lg text-gray-800 mb-2">Temos a honra de informar que o(a) aluno(a)</p>
+
+        <p id="nome-exibido" class="text-2xl font-bold text-blue-900 mb-4">
+          __________________________
+        </p>
+
+        <p class="text-lg text-gray-800 mb-4">
+          participou da <span class="font-code text-base font-semibold">Oficina Prática Meu Primeiro Site</span><br />
+          promovida pelo <span class="font-code text-base font-bold">Realizada pelos alunos da Turma V1 - 2024/2</span>
+        </p>
+
+        <p class="text-base mt-2 text-gray-700">
+          SENAI – Técnico em Desenvolvimento de Sistemas
+        </p>
+
+        <div class="mt-6">
+          <p class="italic text-gray-800 text-lg">Joana Favaretto</p>
+          <p class="text-sm text-gray-700">Profª Responsável do projeto</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Campo de Nome e Botão -->
+  <div class="mt-8 w-full max-w-md flex flex-col items-center gap-4 z-20 relative">
+    <label for="nome" class="text-lg font-semibold text-gray-800">Digite seu nome completo:</label>
+
+    <input
+      type="text"
+      id="nome"
+      placeholder="Ex: Joana Favaretto  "
+      class="w-full px-4 py-2 border border-gray-400 rounded shadow text-center text-lg bg-white"
+      oninput="atualizarNome()" />
+
+    <button
+      onclick="baixarImagem()"
+      class="px-6 py-2 bg-black text-white font-semibold rounded shadow hover:bg-gray-800 transition">
+      📥 Baixar Certificado
+    </button>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function atualizarNome() {
+      const nome = document.getElementById("nome").value.trim();
+      document.getElementById("nome-exibido").textContent = nome || "__________________________";
+    }
+
+   function baixarImagem() {
+  alert("📸 Tire um print da tela para ter o certificado!");
+  
+  html2canvas(document.getElementById("certificado")).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "certificado.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+}
+
+
+  </script>
+</body>
+</html>
